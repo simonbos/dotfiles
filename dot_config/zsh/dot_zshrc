@@ -1,0 +1,14 @@
+# Global
+export EDITOR='nvim'
+
+# History
+export HISTSIZE='65536'
+export HISTFILESIZE="${HISTSIZE}"
+export SAVEHIST="${HISTSIZE}"
+export HISTFILE="${HOME}/.local/share/zsh/history"
+
+# See https://zsh.sourceforge.io/Doc/Release/Options.html
+setopt append_history
+setopt hist_ignore_all_dups
+setopt hist_ignore_space
+setopt notify

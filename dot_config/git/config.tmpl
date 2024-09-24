@@ -1,0 +1,78 @@
+[user]
+	name = {{ .name | quote }}
+	email = {{ .email | quote }}
+	signingKey = {{ .git.sign.key | quote }}
+[gpg]
+	format = {{ .git.sign.format | quote }}
+[commit]
+	gpgSign = {{ printf "%t" .git.sign.autoEnabled }}
+[tag]
+	gpgSign = {{ printf "%t" .git.sign.autoEnabled }}
+[alias]
+	a = "add -A"
+	d = "diff"
+	b = "branch"
+	c = "commit"
+	co = "checkout"
+	s = "!git status -sb && git stash list"
+	st = "status"
+	unstage = "restore --staged"
+	amend = "commit --amend --reuse-message=HEAD"
+	lg = "log --color --decorate --graph --pretty=format:'%C(yellow)%h%Creset %C(blue)(%cs)%Creset - %s%C(red)%d%Creset %C(green)<%an>%Creset' --abbrev-commit"
+	dm = "!git branch --merged | grep -v '\\*' | xargs -n 1 git branch -d"
+[core]
+	ignoreCase = false
+	autocrlf = false
+	pager = "delta"
+	excludesFile = {{ print (trimSuffix "/" .chezmoi.homeDir) "/.config/git/ignore" | quote }}
+[init]
+	defaultBranch = "main"
+[apply]
+	whitespace = "fix"
+[push]
+	default = "upstream"
+[pull]
+	rebase = true
+[color]
+	ui = "auto"
+[color "branch"]
+	current = "yellow reverse"
+	local = "yellow"
+	remote = "green"
+[color "diff"]
+	meta = "yellow"
+	frag = "magenta"
+	old = "red"
+	new = "green"
+[color "status"]
+	added = "green"
+	updated = "white green"
+	changed = "yellow"
+	untracked = "cyan"
+	nobranch = "red white"
+[delta]
+	features = "decorations"
+	side-by-side = true
+	line-numbers = true
+	navigate = true
+	light = true
+	syntax-theme = "GitHub"
+[delta "interactive"]
+	keep-plus-minus-markers = false
+[delta "decorations"]
+	file-style = "omit"
+	hunk-header-decoration-style = "blue box"
+	hunk-header-file-style = "red"
+	hunk-header-line-number-style = "#067a00"
+	hunk-header-style = "file line-number syntax"
+[interactive]
+	diffFilter = "delta --color-only --features=interactive"
+[filter "lfs"]
+	required = true
+	clean = "git-lfs clean -- %f"
+	smudge = "git-lfs smudge -- %f"
+	process = "git-lfs filter-process"
+{{- if .work.enabled }}
+[includeIf {{ print "gitdir:" (trimSuffix "/" .work.git.dir) "/" | quote }}]
+	path = "work.inc"
+{{- end }}

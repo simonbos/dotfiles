@@ -1,0 +1,9 @@
+[user]
+	email = {{ .work.email | quote }}
+	signingKey = {{ .work.git.sign.key | quote }}
+[gpg]
+	format = {{ .work.git.sign.format | quote }}
+[commit]
+	gpgSign = {{ printf "%t" .work.git.sign.autoEnabled }}
+[tag]
+	gpgSign = {{ printf "%t" .work.git.sign.autoEnabled }}

@@ -1,0 +1,78 @@
+format = "$time$directory$git_branch$git_commit$git_state$fill$nix_shell$jobs$status$line_break$character"
+add_newline = false
+
+[character]
+format = "▶ "
+disabled = false
+
+[directory]
+truncation_length = 3
+truncate_to_repo = false
+format = "[ $path ]($style)[](fg:#585858)[$read_only]($read_only_style) "
+style = "bg:#585858 fg:#ffffff"
+read_only = "  "
+truncation_symbol = "…/"
+disabled = false
+
+[fill]
+style = ""
+symbol = " "
+disabled = false
+
+[git_branch]
+format = "[](fg:green)[$symbol$branch]($style)[](fg:green)"
+symbol = " "
+style = "bg:green fg:#ffffff"
+only_attached = true
+disabled = false
+
+[git_commit]
+commit_hash_length = 7
+format = "[](fg:green)[ $hash]($style)[](fg:green)"
+style = "bg:green fg:#ffffff"
+only_detached = true
+tag_symbol = ""
+tag_disabled = true
+disabled = false
+
+[git_state]
+rebase = "REBASING"
+merge = "MERGING"
+revert = "REVERTING"
+cherry_pick = "CHERRY-PICKING"
+bisect = "BISECTING"
+am = "AM"
+am_or_rebase = "AM/REBASE"
+style = "bg:purple fg:#ffffff"
+format = "[](fg:purple)[$state]($style)[](fg:purple)"
+disabled = false
+
+[jobs]
+threshold = 1
+symbol_threshold = 1
+number_threshold = 1
+format = "[](fg:cyan)[$symbol$number]($style)[](fg:cyan)"
+symbol = " "
+style = "bg:cyan fg:#ffffff"
+disabled = false
+
+[line_break]
+disabled = false
+
+[nix_shell]
+format = '[](fg:blue)[$symbol nix]($style)[](fg:blue)'
+symbol = "❄"
+style = "bg:blue fg:#ffffff"
+disabled = false
+
+[status]
+format = "[](fg:red)[$symbol]($style)[](fg:red)"
+symbol = "✘"
+style = "bg:red fg:#ffffff"
+disabled = false
+
+[time]
+format = "[ $time ]($style)[](fg:#0087af bg:#585858)"
+time_format = "%R"
+style = "bold bg:#0087af fg:#ffffff"
+disabled = false

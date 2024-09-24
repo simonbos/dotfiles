@@ -1,0 +1,7 @@
+# Shell
+{{- if eq .chezmoi.os "darwin" }}
+## fish is not (always) on the global PATH on MacOS, so we specify the absolute path.
+shell {{ print (trimSuffix "/" .darwin.homebrewPrefix) "/bin/fish" | squote }} --login --interactive
+{{- else if eq .chezmoi.os "linux" }}
+shell fish
+{{- end }}

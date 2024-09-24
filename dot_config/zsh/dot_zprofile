@@ -1,0 +1,4 @@
+# Source zprofile.d
+for file in "${HOME}"/.config/zsh/zprofile.d/*(.N); do
+    source "${file}"
+done

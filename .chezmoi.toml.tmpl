@@ -1,0 +1,83 @@
+{{- $gitSignFormatChoices := list "openpgp" "ssh" -}}
+
+{{- $name := promptStringOnce . "name" "What is your name" -}}
+{{- $email := promptStringOnce . "email" "What is your personal email address" -}}
+{{- $cheznousEnabled := promptBoolOnce . "cheznousEnabled" "Enable cheznous" -}}
+
+{{- $kittyFontSize := promptIntOnce . "kitty.fontSize" "What is your preferred font size for Kitty" -}}
+
+{{- $gitSignEnabled := promptBoolOnce . "git.sign.enabled" "Enable Git signing (personal)" -}}
+{{- $gitSignFormat := "ssh" -}}
+{{- $gitSignKey := "" -}}
+{{- $gitSignAutoEnabled := false -}}
+{{- if $gitSignEnabled -}}
+    {{- $gitSignFormat = promptChoiceOnce . "git.sign.format" "Which Git sign format should be used (personal)" $gitSignFormatChoices -}}
+    {{- if eq $gitSignFormat "openpgp" -}}
+        {{- $gitSignKey = promptStringOnce . "git.sign.key" "What is the key ID of your GPG signing key for Git (personal)" -}}
+    {{- else if eq $gitSignFormat "ssh" -}}
+        {{- $gitSignKey = promptStringOnce . "git.sign.key" "What is the absolute path to your SSH signing key for Git (personal)" -}}
+    {{- end -}}
+    {{- $gitSignAutoEnabled = promptBoolOnce . "git.sign.autoEnabled" "Enable Git automatic commit & tag signing (personal)" -}}
+{{- end -}}
+
+{{- $workEnabled := promptBoolOnce . "work.enabled" "Enable work mode" -}}
+{{- $workEmail := "" -}}
+{{- $workGitDir := "" -}}
+{{- $workGitSignEnabled := false -}}
+{{- $workGitSignFormat := "ssh" -}}
+{{- $workGitSignKey := "" -}}
+{{- $workGitSignAutoEnabled := false -}}
+{{- if $workEnabled -}}
+    {{- $workEmail = promptStringOnce . "work.email" "What is your work email address" -}}
+    {{- $workGitDir = promptStringOnce . "work.git.dir" "What is the absolute path to your Git work directory" -}}
+    {{- $workGitSignEnabled = promptBoolOnce . "work.git.sign.enabled" "Enable Git signing (work)" -}}
+    {{- if $workGitSignEnabled -}}
+        {{- $workGitSignFormat = promptChoiceOnce . "work.git.sign.format" "Which Git sign format should be used (work)" $gitSignFormatChoices -}}
+        {{- if eq $workGitSignFormat "openpgp" -}}
+            {{- $workGitSignKey = promptStringOnce . "work.git.sign.key" "What is the key ID of your GPG signing key for Git (work)" -}}
+        {{- else if eq $workGitSignFormat "ssh" -}}
+            {{- $workGitSignKey = promptStringOnce . "work.git.sign.key" "What is the absolute path to your SSH signing key for Git (work)" -}}
+        {{- end -}}
+        {{- $workGitSignAutoEnabled = promptBoolOnce . "work.git.sign.autoEnabled" "Enable Git automatic commit & tag signing (work)" -}}
+    {{- end -}}
+{{- end -}}
+
+{{- $homebrewPrefix := "" -}}
+{{- if and (eq .chezmoi.os "darwin") (eq .chezmoi.arch "arm64") -}}
+    {{- $homebrewPrefix = "/opt/homebrew" -}}
+{{- else if and (eq .chezmoi.os "darwin") (eq .chezmoi.arch "amd64") -}}
+    {{- $homebrewPrefix = "/usr/local" -}}
+{{- end -}}
+
+[diff]
+pager = "delta"
+
+[data]
+name = {{ $name | quote }}
+email = {{ $email | quote }}
+cheznousEnabled = {{ printf "%t" $cheznousEnabled }}
+
+[data."kitty"]
+fontSize = {{ printf "%d" $kittyFontSize }}
+
+[data."git"."sign"]
+enabled = {{ printf "%t" $gitSignEnabled }}
+format = {{ $gitSignFormat | quote }}
+key = {{ $gitSignKey | quote }}
+autoEnabled = {{ printf "%t" $gitSignAutoEnabled }}
+
+[data."work"]
+enabled = {{ printf "%t" $workEnabled }}
+email = {{ $workEmail | quote }}
+
+[data."work"."git"]
+dir = {{ $workGitDir | quote }}
+
+[data."work"."git"."sign"]
+enabled = {{ printf "%t" $workGitSignEnabled }}
+format = {{ $workGitSignFormat | quote }}
+key = {{ $workGitSignKey | quote }}
+autoEnabled = {{ printf "%t" $workGitSignAutoEnabled }}
+
+[data."darwin"]
+homebrewPrefix = {{ $homebrewPrefix | quote }}

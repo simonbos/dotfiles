@@ -1,0 +1,21 @@
+{{ if ne .chezmoi.os "darwin" -}}
+.chezmoiscripts/darwin/**
+.config/fish/conf.d/00_homebrew.fish
+.zshenv
+.config/zsh
+{{- end }}
+
+{{- if not (and (eq .chezmoi.os "linux") (eq .chezmoi.osRelease.id "arch")) }}
+.chezmoiscripts/archlinux/**
+{{- end }}
+
+{{- if not .cheznousEnabled }}
+.config/fish/conf.d/10_cheznous.fish
+{{- end }}
+
+{{- if not .work.enabled }}
+.config/git/work.inc
+{{- end }}
+
+README.md
+LICENSE

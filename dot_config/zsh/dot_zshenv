@@ -1,0 +1,4 @@
+# Source zshenv.d
+for file in "${HOME}"/.config/zsh/zshenv.d/*(.N); do
+    source "${file}"
+done

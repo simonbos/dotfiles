@@ -1,0 +1,4 @@
+# Add Homebrew environment variables
+if test -x {{ print (trimSuffix "/" .darwin.homebrewPrefix) "/bin/brew" | squote }}
+    eval "$({{ print (trimSuffix "/" .darwin.homebrewPrefix) "/bin/brew" | squote }} shellenv)"
+end
