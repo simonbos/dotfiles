@@ -17,8 +17,14 @@ if status is-interactive
     abbr --add 'vim' 'nvim'
 
     # FZF options
+    # See https://github.com/catppuccin/fzf for the colorscheme.
     set -g -x FZF_DEFAULT_COMMAND 'fd --type f'
-    set -g -x FZF_DEFAULT_OPTS '--color light --reverse'
+    set -g -x FZF_DEFAULT_OPTS "\
+        --reverse \
+        --color=bg+:#ccd0da,bg:#eff1f5,spinner:#dc8a78,hl:#d20f39 \
+        --color=fg:#4c4f69,header:#d20f39,info:#8839ef,pointer:#dc8a78 \
+        --color=marker:#7287fd,fg+:#4c4f69,prompt:#8839ef,hl+:#d20f39 \
+        --color=selected-bg:#bcc0cc"
     set -g -x FZF_CTRL_T_COMMAND 'fd --type f'
     set -g -x FZF_CTRL_T_OPTS '--preview \'bat --style=numbers --color=always --line-range :500 {}\''
     set -g -x FZF_ALT_C_COMMAND 'fd --type d'
@@ -32,7 +38,7 @@ if status is-interactive
     bind \t 'if not commandline --paging-full-mode; commandline -f complete; end'
 
     # Shell colors
-    set -g -x EZA_COLORS "$(vivid generate one-light)"
+    set -g -x EZA_COLORS "$(vivid generate catppuccin-latte)"
     set -g -x LS_COLORS "$EZA_COLORS"
 
     # Initialize shell integrations

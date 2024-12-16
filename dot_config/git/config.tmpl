@@ -50,21 +50,18 @@
 	changed = "yellow"
 	untracked = "cyan"
 	nobranch = "red white"
+[include]
+	path = "catppuccin.gitconfig"
 [delta]
-	features = "decorations"
+	features = "catppuccin-latte decorations"
 	side-by-side = true
 	line-numbers = true
 	navigate = true
 	light = true
-	syntax-theme = "GitHub"
 [delta "interactive"]
 	keep-plus-minus-markers = false
 [delta "decorations"]
 	file-style = "omit"
-	hunk-header-decoration-style = "blue box"
-	hunk-header-file-style = "red"
-	hunk-header-line-number-style = "#067a00"
-	hunk-header-style = "file line-number syntax"
 [interactive]
 	diffFilter = "delta --color-only --features=interactive"
 [filter "lfs"]

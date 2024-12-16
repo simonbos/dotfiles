@@ -11,6 +11,8 @@ if !exists('g:vscode')
     :packadd! lastplace
     " Use the VSCode plugin 'editorconfig.editorconfig' instead
     :packadd! sleuth
+    " Use the VSCode plugin 'Catppuccin.catppuccin-vsc' instead
+    :packadd! catppuccin
 endif
 
 set hlsearch
