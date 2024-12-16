@@ -13,6 +13,7 @@ if !exists('g:vscode')
     :packadd! sleuth
     " Use the VSCode plugin 'Catppuccin.catppuccin-vsc' instead
     :packadd! catppuccin
+    colorscheme catppuccin-latte
 endif
 
 set hlsearch
@@ -23,7 +24,6 @@ set number
 set relativenumber
 set ignorecase
 set smartcase
-set notermguicolors " https://github.com/neovim/neovim/issues/28862
 
 " Copy/paste to/from the system secondary buffer
 vmap <leader>c "+y
@@ -38,7 +38,3 @@ au VimEnter * if exists(":StripWhitespace") | exe "noremap <leader>ss :StripWhit
 " Use displayed lines for k andj
 nnoremap <expr> k v:count == 0 ? 'gk' : 'k'
 nnoremap <expr> j v:count == 0 ? 'gj' : 'j'
-
-" Colors
-set background=light
-hi Visual cterm=NONE ctermbg=253 ctermfg=NONE guibg=#dadada
