@@ -1,5 +1,5 @@
 # https://junegunn.github.io/fzf/tips/ripgrep-integration/
-function rfv
+function r
     set -l RELOAD 'reload:rg --column --color=always --smart-case {q} || :'
     set -l OPENER 'if [[ $FZF_SELECT_COUNT -eq 0 ]]; then
                      nvim {1} +{2};     # No selection. Open the current line in Vim.
