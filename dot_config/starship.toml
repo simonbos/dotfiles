@@ -67,7 +67,7 @@ disabled = false
 
 [status]
 format = "[](fg:red)[$symbol]($style)[](fg:red)"
-symbol = "✘"
+symbol = "🞪"
 style = "bg:red fg:#ffffff"
 disabled = false
 
